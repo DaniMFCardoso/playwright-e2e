@@ -11,8 +11,18 @@ export default class CarrinhoPage extends BasePage {
     this.carrinhoElements = new CarrinhoElements(page);
   }
 
+  async aceitarCookies(): Promise<void> {
+    const botao =
+      this.carrinhoElements.getBotaoAceitarCookies();
+
+    if (await botao.isVisible().catch(() => false)) {
+      await botao.click();
+    }
+  }
+
   async acessarProduto(urlProduto: string): Promise<void> {
     await this.page.goto(urlProduto);
+    await this.aceitarCookies();
 
     await expect(
       this.carrinhoElements.getTituloProduto()
@@ -46,14 +56,23 @@ export default class CarrinhoPage extends BasePage {
     await expect(botaoSacola).toBeVisible();
     await botaoSacola.click();
 
+    await expect(this.page).toHaveURL(/\/checkout\/cart/);
+
     await expect(
       this.carrinhoElements.getProdutoNaSacola(nomeProduto)
     ).toBeVisible();
   }
 
   async validarSacolaVazia(): Promise<void> {
+    await this.page.goto(
+      'https://www.sephora.com.br/checkout/cart/'
+    );
+
+    await this.aceitarCookies();
+
     await expect(
       this.carrinhoElements.getMensagemSacolaVazia()
     ).toBeVisible();
   }
 }
+

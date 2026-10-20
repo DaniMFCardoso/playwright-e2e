@@ -15,15 +15,13 @@ test.describe('Cadastro de produtos no carrinho - Sephora', () => {
 
   test.beforeEach(async ({ page }) => {
     carrinhoPage = new CarrinhoPage(page);
-
     await page.goto(BASE_URL);
+    await carrinhoPage.aceitarCookies();
   });
 
   test('Adicionar produto ao carrinho', async () => {
     await carrinhoPage.acessarProduto(URL_PRODUTO);
-
     await carrinhoPage.adicionarProdutoSacola();
-
     await carrinhoPage.validarProdutoAdicionado(
       NOME_PRODUTO
     );
