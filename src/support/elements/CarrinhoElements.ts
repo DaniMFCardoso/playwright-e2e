@@ -11,10 +11,6 @@ export default class CarrinhoElements extends BaseElements {
     return this.page.locator('#onetrust-accept-btn-handler');
   }
 
-  getCampoBusca(): Locator {
-    return this.page.getByPlaceholder('Busca').last();
-  }
-
   getTituloProduto(): Locator {
     return this.page.locator('h1').first();
   }
@@ -31,16 +27,11 @@ export default class CarrinhoElements extends BaseElements {
     );
   }
 
-  getProdutoNaSacola(nomeProduto: string): Locator {
-    return this.page.getByText(nomeProduto, {
-      exact: false,
-    }).first();
+  getItensSacola(): Locator {
+    return this.page.locator('.cart-item');
   }
 
   getMensagemSacolaVazia(): Locator {
-    return this.page.locator(
-      '.mini-cart__empty--message'
-    );
+    return this.page.locator('.cart-empty, .cart-empty__message');
   }
 }
-

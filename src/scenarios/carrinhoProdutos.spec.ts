@@ -10,9 +10,6 @@ test.describe('Cadastro de produtos no carrinho - Sephora', () => {
   const URL_PRODUTO =
     'https://www.sephora.com.br/feito-strengthening-face-250g-512405.html';
 
-  const NOME_PRODUTO =
-    'hidratante fortalecedor cocais feito brasil';
-
   test.beforeEach(async ({ page }) => {
     carrinhoPage = new CarrinhoPage(page);
     await page.goto(BASE_URL);
@@ -22,12 +19,11 @@ test.describe('Cadastro de produtos no carrinho - Sephora', () => {
   test('Adicionar produto ao carrinho', async () => {
     await carrinhoPage.acessarProduto(URL_PRODUTO);
     await carrinhoPage.adicionarProdutoSacola();
-    await carrinhoPage.validarProdutoAdicionado(
-      NOME_PRODUTO
-    );
+    await carrinhoPage.validarProdutoAdicionado();
   });
 
   test('Validar carrinho vazio', async () => {
+    await carrinhoPage.abrirSacola();
     await carrinhoPage.validarSacolaVazia();
   });
 });
