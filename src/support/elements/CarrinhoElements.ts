@@ -27,9 +27,16 @@ export default class CarrinhoElements extends BaseElements {
     );
   }
 
-  getItensSacola(): Locator {
-    return this.page.locator('.cart-item');
-  }
+  
+    getConteudoCarrinho(): Locator {
+    return this.page.locator('main');
+    }
+
+    getLinkProdutoNaSacola(): Locator {
+    return this.page.locator(
+        'main a[href*="/p/"], main a[href*="/produto/"]'
+    );
+    }
 
   getMensagemSacolaVazia(): Locator {
     return this.page.locator('.cart-empty, .cart-empty__message');
